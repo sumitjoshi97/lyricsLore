@@ -29,7 +29,7 @@ export class Lyrics extends Component {
       return <Spinner />
     } else {
 
-      const lyricsSet = JSON.parse(JSON.stringify(lyrics.lyrics_body))
+      const lyricsSet = JSON.stringify(lyrics.lyrics_body)
       const lyricsText = lyricsSet.split('\\n').map((item, i) => {
         return <p key={i}>{item}</p>
       })
