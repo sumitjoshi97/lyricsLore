@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import {Consumer} from '../../../context'
+import { Consumer } from '../../../context'
 
 export class Search extends Component {
   state = {
@@ -13,11 +13,8 @@ export class Search extends Component {
       .get(`https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.search?q_track=${this.state.trackTitle}&page_size=10&page=1&s_track_rating=desc&apikey=${process.env.REACT_APP_LYRICS}`)
       .then(res => {
         console.log(res.data)
-        dispatch({
-          type: 'SEARCH_TRACKS',
-          payload: res.data.message.body.track_list
-        })
-        this.setState({trackTitle: ''})
+        dispatch({ type: 'SEARCH_TRACKS', payload: res.data.message.body.track_list })
+        this.setState({ trackTitle: '' })
       })
       .catch(err => console.log(err))
   }
@@ -26,24 +23,34 @@ export class Search extends Component {
       <Consumer>
         {value => {
           const { dispatch } = value
+
           return (
-            <div className="card card-body mb-4 p4">
-              <h1 className="display-4 text-center">
-                <i className="fas fa-music">Search for song</i>
-              </h1>
-              <p className="lead text-center">get lyrics for any song</p>
-              <form onSubmit={this.findTrack.bind(this, dispatch)}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Song..."
-                    value={this.state.trackTitle}
-                    onChange={(event) => this.setState({trackTitle: event.target.value})}/>
-                </div>
-                <button className="btn btn-primary btn-lg btn-block mb-5" type="submit">Get Lyrics</button>
-              </form>
-            </div>
+            <Fragment>
+              <div className="card card-body mb-4 p4 shadow">
+                <h4 className="text-center heading-primary">Search lyrics for your favorite song</h4>
+                <form
+                  onSubmit={this
+                    .findTrack
+                    .bind(this, dispatch)}>
+                  <div id="custom-search-input" className="gd shadow">
+                    <div className="input-group input-lg">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="search song by track"
+                        value={this.state.trackTitle}
+                        onChange={(event) => this.setState({ trackTitle: event.target.value })} />
+
+                      <span className="input-group-btn">
+                        <button className="btn btn-lg" type="submit">
+                          <i className="fa fa-search"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </Fragment>
           )
         }}
       </Consumer>
