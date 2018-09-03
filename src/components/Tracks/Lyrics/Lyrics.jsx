@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import Moment from 'react-moment'
 import Spinner from '../../Layout/Spinner/Spinner'
 
 export class Lyrics extends Component {
@@ -37,33 +36,18 @@ export class Lyrics extends Component {
       return (
         <Fragment>
           <Link to="/" className="btn btn-dak btn-sm mb-4"><i className="fa fa-arrow-left"></i> Go Back</Link>
-          <h4>Lyrics</h4>
-          <h1 className="font-weight-bold">
+          <h4 className="ml-4">Lyrics</h4>
+          <h1 className="font-weight-bold ml-4">
             {track.track_name}
           </h1>
-          <h3 className="text-primary font-weight-bold">
+          <h3 className="text-primary font-weight-bold ml-4">
             {track.artist_name}
           </h3>
-          <div className="card shadow">
+          <div className="card shadow my-5">
             <div className="card-body">
               {lyricsText}
             </div>
           </div>
-
-          <ul className="list-group my-5 shadow">
-            <li className="list-group-item">
-              <strong>Album ID</strong> : {track.album_id}
-            </li>
-            <li className="list-group-item">
-              <strong>Genres</strong> : {track.primary_genres.music_genre_list[0].music_genre.music_genre_name}
-            </li>
-            <li className="list-group-item">
-              <strong>Explicit</strong> : {track.explicit === 0 ? 'No' : 'Yes'}
-            </li>
-            <li className="list-group-item">
-              <strong>Release Date</strong> : <Moment format='MM/DD/YYYY'>{track.first_release_date}</Moment>
-            </li>
-          </ul>
         </Fragment>
       )
     }
