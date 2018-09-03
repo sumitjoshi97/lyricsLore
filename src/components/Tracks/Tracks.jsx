@@ -15,14 +15,13 @@ export class Tracks extends Component {
           } else {
             return (
               <Fragment>
-                <h3 className="text-cente mb-4">{heading}</h3>
+                <h1 className="text-center my-5">{heading}</h1>
                 <div className="row">
                   { trackList.map(item => (
                     <Track key={item.track.track_id} track={item.track}/>
                   ))}
                 </div>
               </Fragment>
-
             )
           }
         }}
