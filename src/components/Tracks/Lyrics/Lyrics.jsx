@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Spinner from '../../Layout/Spinner/Spinner'
-
+import {TweenMax} from 'gsap'
 export class Lyrics extends Component {
   state = {
     track: {},
@@ -20,6 +20,15 @@ export class Lyrics extends Component {
         this.setState({ track: res.data.message.body.track })
       })
       .catch(err => console.log(err))
+
+    let lyrics = document.getElementsByClassName('lyrics')
+    TweenMax.fromTo(lyrics, 2, {
+      opacity: 0,
+      y: -10
+    }, {
+      opacity: 1,
+      y: 0
+    })
   }
 
   render() {
@@ -27,7 +36,6 @@ export class Lyrics extends Component {
     if (track === undefined || lyrics === undefined || Object.keys(track).length === 0 || Object.keys(lyrics).length === 0) {
       return <Spinner />
     } else {
-
       const lyricsSet = JSON.stringify(lyrics.lyrics_body)
       const lyricsText = lyricsSet.split('\\n').map((item, i) => {
         return <p key={i}>{item}</p>
@@ -43,8 +51,8 @@ export class Lyrics extends Component {
           <h3 className="text-primary font-weight-bold ml-4">
             {track.artist_name}
           </h3>
-          <div className="card shadow my-5">
-            <div className="card-body">
+          <div className="card shadow my-5 lyrics">
+            <div className="card-body lyrics">
               {lyricsText}
             </div>
           </div>

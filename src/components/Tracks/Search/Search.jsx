@@ -1,10 +1,21 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import { Consumer } from '../../../context'
-
+import {TweenMax } from 'gsap'
 export class Search extends Component {
   state = {
     trackTitle: ''
+  }
+
+  componentDidMount() {
+    let search = document.getElementsByClassName('search')
+    TweenMax.fromTo(search, 0.8, {
+      opacity: 0,
+      y: -10
+    }, {
+      opacity: 1,
+      y: 0
+    }, 0.2)
   }
 
   findTrack = (dispatch, e) => {
@@ -25,8 +36,7 @@ export class Search extends Component {
           const { dispatch } = value
 
           return (
-            <Fragment>
-              <div className="card card-body mb-4 p4 shadow">
+              <div className="card card-body mb-4 p4 shadow search">
                 <h4 className="text-center heading-primary">Search lyrics for your favorite song</h4>
                 <form
                   onSubmit={this
@@ -50,7 +60,6 @@ export class Search extends Component {
                   </div>
                 </form>
               </div>
-            </Fragment>
           )
         }}
       </Consumer>
