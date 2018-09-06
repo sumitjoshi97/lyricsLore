@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import TransitionGroup from 'react-transition-group'
-import { TweenMax } from 'gsap'
+import animation from '../../../utility/animation'
+
 class Track extends Component {
     componentDidMount() {
         let track = document.getElementsByClassName('track')
-        TweenMax.staggerFromTo(track, 0.8, {
-            cycle: { x: [-100, 100], opacity: 0 }
-        }, {
-            cycle: { x: [0, 0], opacity: 1, delay: 0.2 * this.props.index }
-            })
+        animation.stagger(track)
     }
     render() {
         return (

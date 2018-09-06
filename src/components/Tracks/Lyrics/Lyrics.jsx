@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Spinner from '../../Layout/Spinner/Spinner'
-import {TweenMax} from 'gsap'
+import Text from './Text/Text'
 export class Lyrics extends Component {
   state = {
     track: {},
@@ -20,16 +20,8 @@ export class Lyrics extends Component {
         this.setState({ track: res.data.message.body.track })
       })
       .catch(err => console.log(err))
-
-    let lyrics = document.getElementsByClassName('lyrics')
-    TweenMax.fromTo(lyrics, 2, {
-      opacity: 0,
-      y: -10
-    }, {
-      opacity: 1,
-      y: 0
-    })
   }
+
 
   render() {
     const { track, lyrics } = this.state
@@ -43,19 +35,17 @@ export class Lyrics extends Component {
 
       return (
         <Fragment>
-          <Link to="/" className="btn btn-dak btn-sm mb-4"><i className="fa fa-arrow-left"></i> Go Back</Link>
-          <h4 className="ml-4">Lyrics</h4>
-          <h1 className="font-weight-bold ml-4">
-            {track.track_name}
-          </h1>
-          <h3 className="text-primary font-weight-bold ml-4">
-            {track.artist_name}
-          </h3>
-          <div className="card shadow my-5 lyrics">
-            <div className="card-body lyrics">
-              {lyricsText}
-            </div>
-          </div>
+            <Link to="/" className="btn btn-dak btn-sm mb-4"><i className="fa fa-arrow-left"></i> Go Back</Link>
+            <h4 className="ml-4">Lyrics</h4>
+            <h1 className="font-weight-bold ml-4">
+              {track.track_name}
+            </h1>
+            <h3 className="text-primary font-weight-bold ml-4">
+              {track.artist_name}
+            </h3>
+            {/* <TransitionGroup> */}
+            <Text lyrics={lyricsText} />
+          {/* </TransitionGroup> */}
         </Fragment>
       )
     }

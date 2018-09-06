@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Consumer } from '../../../context'
-import {TweenMax } from 'gsap'
+import animation from '../../../utility/animation'
+
 export class Search extends Component {
   state = {
     trackTitle: ''
   }
 
   componentDidMount() {
-    let search = document.getElementsByClassName('search')
-    TweenMax.fromTo(search, 0.8, {
-      opacity: 0,
-      y: -10
-    }, {
-      opacity: 1,
-      y: 0
-    }, 0.2)
+    let search = this.container
+    animation.show(search)
   }
 
   findTrack = (dispatch, e) => {
@@ -36,7 +31,7 @@ export class Search extends Component {
           const { dispatch } = value
 
           return (
-              <div className="card card-body mb-4 p4 shadow search">
+              <div className="card card-body mb-4 p4 shadow" ref={c => this.container = c}>
                 <h4 className="text-center heading-primary">Search lyrics for your favorite song</h4>
                 <form
                   onSubmit={this
